@@ -93,39 +93,6 @@ function coblocks_setup() {
 		)
 	);
 
-	/**
-	 * Custom colors for use in the editor.
-	 *
-	 * @link https://wordpress.org/gutenberg/handbook/reference/theme-support/
-	 */
-	add_theme_support(
-		'editor-color-palette', array(
-			array(
-				'name'  => esc_html__( 'Black', '@@textdomain' ),
-				'slug'  => 'black',
-				'color' => '#2a2a2a',
-			),
-			array(
-				'name'  => esc_html__( 'Gray', '@@textdomain' ),
-				'slug'  => 'gray',
-				'color' => '#727477',
-			),
-			array(
-				'name'  => esc_html__( 'Light Gray', '@@textdomain' ),
-				'slug'  => 'light-gray',
-				'color' => '#f8f8f8',
-			),
-		)
-	);
-
-	// Add support for full width images and other content such as videos.
-	add_theme_support( 'align-wide' );
-
-	/*
-	 * This theme styles the visual editor to resemble the theme style.
-	 */
-	add_editor_style( array( 'assets/css/editor.css', coblocks_fonts_url() ) );
-
 	/*
 	 * Enable support for Customizer Selective Refresh.
 	 * See: https://make.wordpress.org/core/2016/02/16/selective-refresh-in-the-customizer/
@@ -141,6 +108,110 @@ function coblocks_setup() {
 			'flex-width' => true,
 		)
 	);
+
+	/**
+	 * Custom colors for use in the editor.
+	 *
+	 * @link https://wordpress.org/gutenberg/handbook/reference/theme-support/
+	 */
+	add_theme_support(
+		'editor-color-palette', array(
+			array(
+				'name'  => esc_html__( 'Dark Black', '@@textdomain' ),
+				'slug'  => 'dark-black',
+				'color' => '#040402',
+			),
+			array(
+				'name'  => esc_html__( 'Black', '@@textdomain' ),
+				'slug'  => 'black',
+				'color' => '#2a2a2a',
+			),
+			array(
+				'name'  => esc_html__( 'Gray', '@@textdomain' ),
+				'slug'  => 'gray',
+				'color' => '#656e79',
+			),
+			array(
+				'name'  => esc_html__( 'Medium Gray', '@@textdomain' ),
+				'slug'  => 'medium-gray',
+				'color' => '#8f949e',
+			),
+			array(
+				'name'  => esc_html__( 'Light Gray', '@@textdomain' ),
+				'slug'  => 'light-gray',
+				'color' => '#f8f8f8',
+			),
+			array(
+				'name'  => esc_html__( 'CoBlocks Blue', '@@textdomain' ),
+				'slug'  => 'coblocks-blue',
+				'color' => '#575ffd',
+			),
+			array(
+				'name'  => esc_html__( 'CoBlocks Green', '@@textdomain' ),
+				'slug'  => 'coblocks-green',
+				'color' => '#21e8af',
+			),
+			array(
+				'name'  => esc_html__( 'CoBlocks Orange', '@@textdomain' ),
+				'slug'  => 'coblocks-orange',
+				'color' => '#ff5b44',
+			),
+			array(
+				'name'  => esc_html__( 'CoBlocks Yellow', '@@textdomain' ),
+				'slug'  => 'coblocks-yellow',
+				'color' => '#fee13d',
+			),
+		)
+	);
+
+	/**
+	 * Custom font sizes for use in the editor.
+	 *
+	 * @link https://wordpress.org/gutenberg/handbook/extensibility/theme-support/#block-font-sizes
+	 */
+	add_theme_support(
+		'editor-font-sizes', array(
+			array(
+				'name'      => esc_html__( 'Small', '@@textdomain' ),
+				'shortName' => esc_html__( 'S', '@@textdomain' ),
+				'size'      => 16,
+				'slug'      => 'small',
+			),
+			array(
+				'name'      => esc_html__( 'Regular', '@@textdomain' ),
+				'shortName' => esc_html__( 'M', '@@textdomain' ),
+				'size'      => 19,
+				'slug'      => 'regular',
+			),
+			array(
+				'name'      => esc_html__( 'Large', '@@textdomain' ),
+				'shortName' => esc_html__( 'L', '@@textdomain' ),
+				'size'      => 24,
+				'slug'      => 'large',
+			),
+			array(
+				'name'      => esc_html__( 'Huge', '@@textdomain' ),
+				'shortName' => esc_html__( 'XL', '@@textdomain' ),
+				'size'      => 32,
+				'slug'      => 'huge',
+			),
+		)
+	);
+
+	// Add support for default block styles.
+	add_theme_support( 'wp-block-styles' );
+
+	// Add support for full and wide align images.
+	add_theme_support( 'align-wide' );
+
+	// Add support for editor styles.
+	add_theme_support( 'editor-styles' );
+
+	// Enqueue editor styles.
+	add_editor_style( 'assets/css/style-editor.css' );
+
+	// Enqueue fonts in the editor.
+	add_editor_style( coblocks_fonts_url() );
 
 	/*
 	 * Define starter content for the theme.
@@ -162,7 +233,7 @@ function coblocks_setup() {
 		'theme_mods'  => array(
 			'show_on_front'         => 'page',
 			'page_for_posts'        => '{{blog}}',
-			'blogdescription'       => _x( 'CoBlocks, A beautiful Gutenberg-centric WordPress theme', 'Theme starter content', '@@textdomain' ),
+			'blogdescription'       => _x( 'CoBlocks, A beautiful Gutenberg WordPress theme', 'Theme starter content', '@@textdomain' ),
 			'custom_logo'           => '{{image-logo}}',
 			'custom_logo_max_width' => coblocks_defaults( 'custom_logo_max_width' ),
 		),
@@ -237,13 +308,12 @@ add_action( 'widgets_init', 'coblocks_widgets_init' );
 function coblocks_scripts() {
 
 	// Add custom fonts, used in the main stylesheet.
-	wp_enqueue_style( 'coblocks-fonts', coblocks_fonts_url(), array(), null );
+	wp_enqueue_style( 'coblocks-fonts', coblocks_fonts_url(), false, '@@pkg.version', 'all' );
 
 	// Theme stylesheet.
-	wp_enqueue_style( 'coblocks-style', get_stylesheet_uri() );
+	wp_enqueue_style( 'coblocks-style', get_stylesheet_uri(), false, '@@pkg.version', 'all' );
 
 	// Scripts.
-	wp_enqueue_script( 'jquery-fitvids', get_theme_file_uri( '/assets/js/jquery.fitvids.js' ), array( 'jquery' ), '@@pkg.version', true );
 	wp_enqueue_script( 'coblocks-skip-link-focus-fix', get_theme_file_uri( '/assets/js/skip-link-focus-fix.js' ), array(), '@@pkg.version', true );
 	wp_enqueue_script( 'coblocks-navigation', get_theme_file_uri( '/assets/js/navigation.js' ), array( 'jquery' ), '@@pkg.version', true );
 	wp_enqueue_script( 'coblocks-global', get_theme_file_uri( '/assets/js/global.js' ), array( 'jquery' ), '@@pkg.version', true );
@@ -266,19 +336,6 @@ function coblocks_scripts() {
 	wp_localize_script( 'coblocks-navigation', 'coblocksScreenReaderText', $coblocks_l10n );
 }
 add_action( 'wp_enqueue_scripts', 'coblocks_scripts' );
-
-/**
- * Enqueue theme styles within Gutenberg.
- */
-function coblocks_gutenberg_styles() {
-
-	// Load the theme styles within Gutenberg.
-	wp_enqueue_style( 'coblocks-gutenberg', get_theme_file_uri( '/assets/css/gutenberg.css' ), false, '@@pkg.version', 'all' );
-
-	// Add custom fonts to Gutenberg.
-	wp_enqueue_style( 'coblocks-fonts', coblocks_fonts_url(), array(), null );
-}
-add_action( 'enqueue_block_editor_assets', 'coblocks_gutenberg_styles' );
 
 /**
  * Enqueue inline script for the accessibility settings module.
@@ -458,6 +515,7 @@ require get_theme_file_path( '/inc/template-functions.php' );
 require get_theme_file_path( '/inc/customizer/defaults.php' );
 require get_theme_file_path( '/inc/customizer/customizer.php' );
 require get_theme_file_path( '/inc/customizer/customizer-css.php' );
+require get_theme_file_path( '/inc/customizer/customizer-editor.php' );
 require get_theme_file_path( '/inc/customizer/sanitization.php' );
 
 /**

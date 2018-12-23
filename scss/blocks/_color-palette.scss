@@ -1,23 +1,27 @@
-.has-black-background-color {
-	background-color: $black;
+$color_1: #040402;
+$color_2: #2a2a2a;
+$color_3: #656e79;
+$color_4: #8f949e;
+$color_5: #f8f8f8;
+$color_6: #575ffd;
+$color_7: #21e8af;
+$color_8: #ff5b44;
+$color_9: #fee13d;
+
+$colors: (dark-black, $color_1), (black, $color_2), (gray, $color_3), (medium-gray, $color_4), (light-gray, $color_5), (coblocks-blue, $color_6),
+	(coblocks-green, $color_7), (coblocks-orange, $color_8), (coblocks-yellow, $color_9);
+
+@each $name, $color in $colors {
+	.has-#{$name}-color {
+		color: $color;
+	}
+
+	.has-#{$name}-background-color {
+		background-color: $color;
+	}
 }
 
-.has-gray-background-color {
-	background-color: $gray;
-}
-
-.has-light-gray-background-color {
-	background-color: $background;
-}
-
-.has-light-gray-color {
-	color: $background;
-}
-
-.has-black-color {
-	color: $black;
-}
-
-.has-gray-color {
-	color: $gray;
+// Fallback color for .has-background-color.
+.has-background:not([class*="background-color"]) {
+	background-color: $color--has-background-color-fallback;
 }
